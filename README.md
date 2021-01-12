@@ -8,10 +8,9 @@ In this project, we have crawled over ten thousands pages and six thousands phot
 
 ## The implement of the main files
 In `static`, it's our static resource for the front web, which includes the image and faces database and css js files.
-Before using it, you should first add the static path to the `app.py`.
-In `templates`,it's our html templates.
-In `genetic-drawing`,it's a ai-drawing achieved by genetic-algorithm. It can imitate the way humans draw and produce a `gif` image of the search result.   
-However, we didn't write it alone. It's an open source project from GitHub. We improve and adjust it.
+Before using it, you should first add the static path to the `app.py`.  
+In `templates`,it's our html templates.  
+In `genetic-drawing`,it's a ai-drawing achieved by genetic-algorithm. It can imitate the way humans draw and produce a `gif` image of the search result.   However, we didn't write it alone. It's an open source project from GitHub. We improve and adjust it.  
 `sports_html` and `sohu_html` are our original data.
 `sports_index` is the index created by lucene.
 `app.py` is used to create our web.
