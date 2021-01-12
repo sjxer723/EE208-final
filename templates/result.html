@@ -1,0 +1,306 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title></title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="" />
+<meta name="keywords" content="" />
+<meta name="author" content="" />
+<!-- Facebook and Twitter integration -->
+<meta property="og:title" content=""/>
+<meta property="og:image" content=""/>
+<meta property="og:url" content=""/>
+<meta property="og:site_name" content=""/>
+<meta property="og:description" content=""/>
+<meta name="twitter:title" content="" />
+<meta name="twitter:image" content="" />
+<meta name="twitter:url" content="" />
+<meta name="twitter:card" content="" />
+
+<link href="https://fonts.googleapis.com/css?family=Oxygen:300,400" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700" rel="stylesheet">
+<!-- Animate.css -->
+<link rel="stylesheet" href="{{url_for('static',filename='css/animate.css')}}">
+<!-- Icomoon Icon Fonts-->
+<link rel="stylesheet" href="{{url_for('static',filename='css/icomoon.css')}}">
+<!-- Bootstrap  -->
+<link rel="stylesheet" href="{{url_for('static',filename='css/bootstrap.css')}}">
+<!-- Magnific Popup -->
+<link rel="stylesheet" href="{{url_for('static',filename='css/magnific-popup.css')}}">
+<!-- Flexslider  -->
+<link rel="stylesheet" href="{{url_for('static',filename='css/flexslider.css')}}">
+<!-- Theme style  -->
+<link rel="stylesheet" href="{{url_for('static',filename='css/style.css')}}">
+<!-- Modernizr JS -->
+<script src="{{url_for('static',filename='js/modernizr-2.6.2.min.js')}}"></script>
+
+</head>
+
+<body>
+
+<div style="display:none;">隐藏</div>
+<div class="fh5co-loader"></div>
+<div id="page">
+<nav class="fh5co-nav" role="navigation">
+	<div class="container-wrap">
+		<div class="top-menu">
+			<div class="row">
+				<div class="col-xs-2">
+					<div id="fh5co-logo"><a href="./">Home</a></div>
+				</div>
+				<div class="col-xs-10 text-right menu-1">
+					<ul>
+						<li><a href="./">Home</a></li>
+						<li class="has-dropdown">
+							<a href="#">Work</a>
+							<ul class="dropdown">
+								<li><a href="./word">Search by words</a></li>
+								<li><a href="./img">Search by image</a></li>
+							</ul>
+						</li>
+						<li class="has-dropdown">
+							<a href="blog.html">Blog</a>
+							<ul class="dropdown">
+								<li><a href="#">Web Design</a></li>
+								<li><a href="#">eCommerce</a></li>
+								<li><a href="#">Branding</a></li>
+								<li><a href="#">API</a></li>
+							</ul>
+						</li>
+						<li><a href="about.html">About</a></li>
+						<li><a href="fh5co-footer">Contact</a></li>
+					</ul>
+				</div>
+			</div>
+			
+		</div>
+	</div>
+</nav>
+
+<!--START SEARCH-->
+<div class="container-wrap">
+	<aside id="fh5co-hero">
+		<div class="flexslider">
+			<ul class="slides">
+			<li style="background-image: url(./static/images/res_bg_1.jpg);">
+				<div class="overlay-gradient"></div>
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-md-6 col-md-offset-3 slider-text">
+							<div class="slider-text-inner text-center">
+								<h1>Search By keywords</h1>
+								<!--input form-->
+								<div id="input_group" align=center>
+									<p>输入关键词，获取相关新闻资讯</p>
+									<form class="form-inline" method="GET" action='/wdresult'>
+										<input type="text" name="keyword" >
+										<button type="submit" class="btn btn-primary btn-learn" >Search</button>
+									</form>
+								</div>
+								<!--input form end-->
+							</div>
+						</div>
+					</div>
+				</div>
+			</li>				
+			</ul>
+		</div>
+	</aside>
+</div>
+<!--END SEARCH-->
+
+<!--START RESULT-->
+<div class="container-wrap">
+	<div id="fh5co-work" class="fh5co-light-grey" style="background-image: url(./static/images/res_bg_4.jpg)">
+		<div class="row animate-box">
+			<div class="col-md-6 col-md-offset-3 text-center fh5co-heading">
+				<h1>Results From '新闻网'</h1>
+				<p>Sorted by relation</p>
+			</div>
+		</div>
+		{%if keyword | length>0 %}
+			<h2>Searching for:<b>{{keyword}}</b></h2>
+			<div class="row">
+				{%if res_cnt>3 %}
+					<p>Total {{res_cnt}} results.</p>
+					{%for res in res_list[0:3]%}
+						<div class="col-md-4">
+							<div class="fh5co-blog animate-box">
+								<a href="{{res.url}}" class="blog-bg" style="background-image: url({{res.new_img_url}});"></a>
+								<div class="blog-text">
+									<span class="posted_on">{{res.date}}</span>
+									<h3><a href="{{res.url}}">{{res.title}}</a></h3>
+									<p>{{res.tips|safe}}</p>
+									<ul class="stuff">
+										<li><i class="icon-eye2">{{res.site}}</i></li>
+										<li><a href="./message?filename={{res.filename}}">Read More<i class="icon-arrow-right22"></i></a></li>
+									</ul>
+								</div> 
+							</div>
+						</div>
+					{%endfor%}
+					<a href="#">查看更多</a>
+				{%else%}
+					{%if res_cnt>0 %}
+						<p>Total {{res_cnt}} results.</p>
+						{%for res in res_list_1%}
+							<div class="col-md-4 text-center animate-box">
+								<a href="{{res.url}}" class="work" style="background-image: url({{res.new_img_url}});">
+									<div class="desc">
+										<h3>{{res.title}}</h3>
+										<span>{{res.date}}</span>
+										<span>{{res.tips|safe}}</span>
+									</div>
+								</a>
+							</div>
+						{%endfor%}
+					{%else%}
+						<p>Sorry, there aren't any results.</p>
+					{%endif%}
+        		{%endif%}
+			</div>
+		{% else %}
+			<p>Error!Please input valid keyword!</p>
+		{%endif%}
+	</div>
+	<div id="fh5co-work" class="fh5co-light-grey">
+		<div class="row animate-box">
+			<div class="col-md-6 col-md-offset-3 text-center fh5co-heading">
+				<h1>Results From '新闻网'</h1>
+				<p>Sorted by date</p>
+			</div>
+		</div>
+		{%if keyword | length>0 %}
+			<h2>Searching for:<b>{{keyword}}</b></h2>
+			<div class="row">
+				{%if res_cnt_1>3 %}
+					<p>Total {{res_cnt_1}} results.</p>
+					{%for res in res_list_1[0:3]%}
+						<div class="col-md-4 text-center animate-box">
+							<a href="{{res.url}}" class="work"  style="background-image: url({{res.new_img_url}});">
+								<div class="desc">
+									<h3>{{res.title}}</h3>
+									<span>{{res.date}}</span>
+									<span>{{res.tips|safe}}</span>
+								</div>
+							</a>
+						</div>
+					{%endfor%}
+					<a href="#">查看更多</a>
+				{%else%}
+					{%if res_cnt_1>0 %}
+						<p>Total {{res_cnt_1}} results.</p>
+						{%for res in res_list_1%}
+							<div class="col-md-4 text-center animate-box">
+								<a href="{{res.url}}" class="work"  style="background-image: url({{res.new_img_url}});">
+									<div class="desc">
+										<h3>{{res.title}}</h3>
+										<span>{{res.date}}</span>
+										<span>{{res.tips|safe}}</span>
+									</div>
+								</a>
+							</div>
+							<div class="blog-text">
+								<span class="posted_on">{{res.date}}</span>
+								<h3><a href="{{res.url}}">{{res.title}}</a></h3>
+								<p>{{res.tips|safe}}</p>
+								<ul class="stuff">
+									<li><i class="icon-eye2">{{res.site}}</i></li>
+									<li><a href="./message?filename={{res.filename}}">Read More<i class="icon-arrow-right22"></i></a></li>
+								</ul>
+							</div> 
+						{%endfor%}
+					{%else%}
+						<p>Sorry, there aren't any results.</p>
+					{%endif%}
+        		{%endif%}
+			</div>
+		{% else %}
+			<p>Error!Please input valid keyword!</p>
+		{%endif%}
+	</div> 
+	<!--RESULT END-->
+</div>
+<!-- END container-wrap -->
+
+
+<div class="container-wrap">
+	<footer id="fh5co-footer" role="contentinfo">
+		<div class="row">
+			<div class="col-md-3 fh5co-widget">
+				<h4>About This Web</h4>
+				<p>We have crawled.</p>
+			</div>
+			<div class="col-md-3 col-md-push-1">
+				<h4>Data source</h4>
+				<ul class="fh5co-footer-links">
+					<li><a href="http://www.dangdang.com/">Dang Dang</a></li>
+					<li><a href="https://book.jd.com/">Jing Dong</a></li>
+					<li><a href="http://opac.lib.sjtu.edu.cn/">SJTU</a></li>
+				</ul>
+			</div>
+
+			<div class="col-md-3 col-md-push-1">
+				<h4>Links</h4>
+				<ul class="fh5co-footer-links">
+					<li><a href="./">Home</a></li>
+					<li><a href="#">Work</a></li>
+					<li><a href="#">Services</a></li>
+					<li><a href="#">Blog</a></li>
+					<li><a href="#">About us</a></li>
+				</ul>
+			</div>
+
+			<div class="col-md-3">
+				<h4>Contact Us</h4>
+				<ul class="fh5co-footer-links">
+					<li>800 DongChuan Road <br>SJTU</li>
+					<li><a href="1825674803@qq.com">1825674803@qq.com</a></li>
+					<li><a href="sjtu_xiaosong@sjtu.edu.cn">sjtu_xiaosong@sjtu.edu.cn</a></li>
+				</ul>
+			</div>
+
+		</div>
+
+		<div class="row copyright">
+			<div class="col-md-12 text-center">
+				<p>
+                    
+					<small class="block">Copyright &copy; 2020 Fall.EE208 Group 5</small> 
+				</p>
+				<p>
+					<ul class="fh5co-social-icons">
+						<li><a href="https://github.com/sjxer723/EE208_final"><i class="icon-github"></i></a></li>
+					</ul>
+				</p>
+			</div>
+		</div>
+	</footer>
+</div><!-- END container-wrap -->
+</div>
+
+<div class="gototop js-top">
+	<a href="#" class="js-gotop"><i class="icon-arrow-up2"></i></a>
+</div>
+
+<!-- jQuery -->
+<script src="{{url_for('static',filename='js/jquery.min.js')}}"></script>
+<!-- jQuery Easing -->
+<script src="{{url_for('static',filename='js/jquery.easing.1.3.js')}}"></script>
+<!-- Bootstrap -->
+<script src="{{url_for('static',filename='js/bootstrap.min.js')}}"></script>
+<!-- Waypoints -->
+<script src="{{url_for('static',filename='js/jquery.waypoints.min.js')}}"></script>
+<!-- Flexslider -->
+<script src="{{url_for('static',filename='js/jquery.flexslider-min.js')}}"></script>
+<!-- Magnific Popup -->
+<script src="{{url_for('static',filename='js/jquery.magnific-popup.min.js')}}"></script>
+<script src="{{url_for('static',filename='js/magnific-popup-options.js')}}"></script>
+<!-- Counters -->
+<!-- Main -->
+<script src="{{url_for('static',filename='js/main.js')}}"></script>
+
+</body>
+</html>
